@@ -9,7 +9,7 @@ from .models import Question
 
 
 def index(request):
-    polls = Poll.objects.order_by('-pub_date')[:100]
+    polls = Poll.objects.prefetch_related('questions__choices').order_by('-pub_date')[:100]
     context = {'polls': polls}
 
     return render_to_response('polls/index.html', context,
